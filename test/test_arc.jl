@@ -71,7 +71,7 @@ import ClassicalOrthogonalPolynomials: jacobimatrix
                         𝐱 = axes(P,1)
                         x,y = first.(𝐱),last.(𝐱)
                         X = (x .* P).args[2]
-                        @test MemoryLayout(X) isa LazyBandedMatrices.LazyBlockBandedLayout
+                        @test MemoryLayout(X) isa AlgebraicCurveOrthogonalPolynomials.LazyBlockBandedLayout
                         
                         X = P \ (x .* P)
                         Y = P \ (y .* P)

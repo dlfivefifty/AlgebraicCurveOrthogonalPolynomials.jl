@@ -36,7 +36,7 @@ LegendreCircle() = LegendreCircle{Float64}()
 
 
 ==(::LegendreCircle, ::LegendreCircle) = true
-axes(P::LegendreCircle{T}) where T = (CircleInclusion{T}(), _BlockedUnitRange(1:2:∞))
+axes(P::LegendreCircle{T}) where T = (CircleInclusion{T}(), BlockedOneTo(1:2:∞))
 
 function getindex(P::LegendreCircle{T}, xy::StaticVector{2}, j::BlockIndex{1}) where T
     x,y = xy
@@ -53,7 +53,7 @@ end
 
 function getindex(P::LegendreCircle{T}, xy::StaticVector{2}, JR::BlockOneTo) where T
     N = Int(maximum(JR))
-    ret = PseudoBlockVector{T}(undef, Vcat(1, Fill(2,N-1)))
+    ret = BlockedVector{T}(undef, Vcat(1, Fill(2,N-1)))
     isempty(JR) && return ret
     x,y = xy
     copyto!(view(ret.blocks,1:2:2N-1), view(ChebyshevT{T}(),x,OneTo(N)))
@@ -111,7 +111,7 @@ end
 
 function getindex(P::UltrasphericalCircle{T}, xy::StaticVector{2}, JR::BlockOneTo) where T
     N = Int(maximum(JR))
-    ret = PseudoBlockVector{T}(undef, Vcat(1, Fill(2,N-1)))
+    ret = BlockedVector{T}(undef, Vcat(1, Fill(2,N-1)))
     isempty(JR) && return ret
     x,y = xy
     copyto!(view(ret.blocks,1:2:2N-1), view(Jacobi((P.a - 1)/2, (P.a - 1)/2),x,OneTo(N)))

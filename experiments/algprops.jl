@@ -1,9 +1,9 @@
 using DelimitedFiles, BlockArrays, Test
 
-Ax = PseudoBlockArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8))
-Bx = PseudoBlockArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8))
-Ay = PseudoBlockArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8))
-By = PseudoBlockArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8))
+Ax = BlockedArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8))
+Bx = BlockedArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8))
+Ay = BlockedArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8))
+By = BlockedArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8))
 
 
 X = z -> Ax + Bx/z + z*Bx'

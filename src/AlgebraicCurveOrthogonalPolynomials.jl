@@ -13,12 +13,14 @@ import Base: in, axes, getindex, broadcasted, tail, +, -, *, /, \, convert, OneT
 import ContinuumArrays: Weight, grid, ℵ₁, ℵ₀, @simplify, ProjectionFactorization, plan_grid_transform, unweighted, weight, transform_ldiv
 import ClassicalOrthogonalPolynomials: checkpoints, ShuffledR2HC, TransformFactorization, ldiv, paddeddata, jacobimatrix, orthogonalityweight, SetindexInterlace, WeightedBasis, HalfWeighted, plotgrid, golubwelsch, recurrencecoefficients
 import MultivariateOrthogonalPolynomials: BlockOneTo, ModalInterlace, BlockRange1, Plan, ModalTrav
-import BlockArrays: block, blockindex, _BlockedUnitRange, BlockSlice, blockcolsupport
+import BlockArrays: block, blockindex, BlockSlice, blockcolsupport
 import BlockBandedMatrices: BlockTridiagonal, AbstractBlockBandedMatrix, blockbandwidths, subblockbandwidths, _BandedBlockBandedMatrix, band
 import SemiclassicalOrthogonalPolynomials: HalfWeighted
 import LazyArrays: LazyVector
 import SingularIntegrals: Associated, associated, stieltjes
 import LazyBandedMatrices: Tridiagonal, SymTridiagonal, BandedMatrix
+
+import LazyBandedMatrices.LazyArraysBlockBandedMatricesExt: LazyBlockBandedLayout
 
 export quarticjacobi, blocksymtricirculant, unroll, randspeccurve, speccurve, specgrid, speccurvemat, symroll, symunroll, spec2alg,
         wedgep, wedgeq, wedger, wedgetransform, plan_wedgetransform, plan_squaretransform, gausswedge, JacobiWedge, LegendreSquare, gausssquare,

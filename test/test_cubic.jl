@@ -30,13 +30,13 @@ import AlgebraicCurveOrthogonalPolynomials: LegendreCubicJacobiX
 
         # @testset "blocked" begin 
         #     # make 1-blocks
-        #     X_P_bl = PseudoBlockArray(view(X_P,2:∞,2:∞), Ones{Int}(∞), Ones{Int}(∞))
-        #     X_Q_bl = PseudoBlockArray(X_Q, Ones{Int}(∞), Ones{Int}(∞))
+        #     X_P_bl = BlockedArray(view(X_P,2:∞,2:∞), Ones{Int}(∞), Ones{Int}(∞))
+        #     X_Q_bl = BlockedArray(X_Q, Ones{Int}(∞), Ones{Int}(∞))
         #     Z = Zeros(axes(X_P_bl))
-        #     X_tail = PseudoBlockArray(BlockBroadcastArray{Float64}(hvcat, 2, X_P_bl, Z, Z, X_Q_bl),
+        #     X_tail = BlockedArray(BlockBroadcastArray{Float64}(hvcat, 2, X_P_bl, Z, Z, X_Q_bl),
         #                     Vcat(2,Fill(3,∞)), Vcat(2,Fill(3,∞)));
 
-        #     r = PseudoBlockArray([X_P[2,1]; Zeros(∞)], (axes(X_tail,1),))
+        #     r = BlockedArray([X_P[2,1]; Zeros(∞)], (axes(X_tail,1),))
 
         #     X = BlockHvcat(2, X_P[1,1], r', r, X_tail);
         # end

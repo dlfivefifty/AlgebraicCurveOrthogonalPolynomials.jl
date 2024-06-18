@@ -46,5 +46,5 @@ function plan_squaretransform(n)
     ret = Array{Float64}(undef, N, N)
     P = LegendreSquare()[SVector.(x,y),Block.(1:n)]
     M = P' * Diagonal(w) * P
-    PseudoBlockArray(M \ (P' * Diagonal(w)), [1:3; fill(4,n-3)], [length(x)])
+    BlockedArray(M \ (P' * Diagonal(w)), [1:3; fill(4,n-3)], [length(x)])
 end

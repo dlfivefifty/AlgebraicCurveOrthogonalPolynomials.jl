@@ -47,7 +47,7 @@ function wedgemassmatrix(n)
         ret[2m] = dot(p0, Diagonal(w), p0)
         ret[2m+1] = dot(r0, Diagonal(w), r0)
     end
-    PseudoBlockArray(Diagonal(ret), [1; fill(2,n-1)], [1; fill(2,n-1)])
+    BlockedArray(Diagonal(ret), [1; fill(2,n-1)], [1; fill(2,n-1)])
 end
 
 function plan_wedgetransform(n)
@@ -65,7 +65,7 @@ function plan_wedgetransform(n)
         ret[2m,:] .= wedgep.(m, x, y) .* w ./ σ
         ret[2m+1,:] .= wedger.(m, x, y) .* w ./ μ
     end
-    PseudoBlockArray(ret, [1; fill(2,n-1)], [N])
+    BlockedArray(ret, [1; fill(2,n-1)], [N])
 end
 
 wedgetransform(v::AbstractVector) = plan_wedgetransform(length(v) ÷ 2 + 1) * v
