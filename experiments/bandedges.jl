@@ -92,7 +92,7 @@ M = p -> inv([II ZZ ZZ;
             B' (A-p*I) B])[end-3:end,1:4]
 
 # powers of M tell us inv(J-z*I)
-JzIinv = PseudoBlockArray(inv([II zeros(2,2N-2); ZZ II zeros(2,2N-4); J[Block.(2:N-1),Block.(1:N)]]), fill(2,N), fill(2,N))
+JzIinv = BlockedArray(inv([II zeros(2,2N-2); ZZ II zeros(2,2N-4); J[Block.(2:N-1),Block.(1:N)]]), fill(2,N), fill(2,N))
 
 @test JzIinv[Block(5,1)] ≈ (M(0)^3)[3:end,1:2]
 

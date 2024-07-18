@@ -34,7 +34,7 @@ ImHermLaurent(::HermLaurent{N,T,N₂}) where {N,T,N₂} = ImHermLaurent{N,T,N₂
 function hermlaurent(A, B)
     N = size(A,1)
     H = HermLaurent{N}()
-    H * PseudoBlockVector([SHermitianCompact{N}(A).lowertriangle; vec(B); Zeros(∞)],(axes(H,2),))
+    H * BlockedVector([SHermitianCompact{N}(A).lowertriangle; vec(B); Zeros(∞)],(axes(H,2),))
 end
 
 axes(F::HermLaurent{N,T,N₂}) where {N,T,N₂} = (Inclusion(ComplexUnitCircle()),blockedrange([N₂; Fill(N^2,∞)]))
@@ -116,10 +116,10 @@ function ldiv(H::HermLaurent{N}, f::AbstractQuasiVector) where N
     c = M \ BroadcastQuasiVector{eltype(M)}(θ -> f[exp(im*θ)], θ)
     BS = BlockArrays.blockcolsupport(c,Block(1))
     if isempty(BS)
-        ret = PseudoBlockVector([Vector{Float64}(); Zeros(∞)], (axes(H,2),))        
+        ret = BlockedVector([Vector{Float64}(); Zeros(∞)], (axes(H,2),))        
     else
         M = BS[end]
-        ret = PseudoBlockVector([Vector{Float64}(undef,last(axes(H,2)[M])); Zeros(∞)], (axes(H,2),))
+        ret = BlockedVector([Vector{Float64}(undef,last(axes(H,2)[M])); Zeros(∞)], (axes(H,2),))
         
         ret[Block(1)] = real(SHermitianCompact{N}(reshape(c[Block(1)],N,N)).lowertriangle)
         for K = Block(2):M
@@ -136,11 +136,11 @@ for op in (:+, :-)
     @eval begin
         function broadcasted(::typeof($op), A::UniformScaling, B::HermLaurentExpansion{N}) where N
             H,_ = B.args
-            $op(H * PseudoBlockArray([SHermitianCompact{N}(A(N)).lowertriangle; Zeros(∞)], (axes(H,2),)), B)
+            $op(H * BlockedArray([SHermitianCompact{N}(A(N)).lowertriangle; Zeros(∞)], (axes(H,2),)), B)
         end
         function broadcasted(::typeof($op), A::HermLaurentExpansion{N}, B::UniformScaling) where N
             H,_ = A.args
-            $op(A, H * PseudoBlockArray([SHermitianCompact{N}(B(N)).lowertriangle; Zeros(∞)], (axes(H,2),)))
+            $op(A, H * BlockedArray([SHermitianCompact{N}(B(N)).lowertriangle; Zeros(∞)], (axes(H,2),)))
         end
     end
 end

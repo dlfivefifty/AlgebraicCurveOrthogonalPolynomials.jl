@@ -45,7 +45,7 @@ end
 LegendreCubic(t) = LegendreCubic{float(typeof(t))}(t)
 
 # block sizes are [1,2,3,3,3,3…] so cum is [1,3,6,9,…]
-axes(P::LegendreCubic{T}) where T = (CubicCurveInclusion(P.t), _BlockedUnitRange(Vcat(1, 3:3:∞)))
+axes(P::LegendreCubic{T}) where T = (CubicCurveInclusion(P.t), BlockedOneTo(Vcat(1, 3:3:∞)))
 
 ==(P::LegendreCubic, Q::LegendreCubic) = P.t == Q.t
 
@@ -75,7 +75,7 @@ summary(io::IO, P::LegendreCubic{V}) where V = print(io, "LegendreCubic($(P.t))"
 abstract type AbstractLegendreCubicJacobi{T} <: AbstractBlockBandedMatrix{T} end
 Base.copy(J::AbstractLegendreCubicJacobi) = J # immutable
 
-axes(::AbstractLegendreCubicJacobi) = (_BlockedUnitRange(Vcat(1, 3:3:∞)), _BlockedUnitRange(Vcat(1, 3:3:∞)))
+axes(::AbstractLegendreCubicJacobi) = (BlockedOneTo(Vcat(1, 3:3:∞)), BlockedOneTo(Vcat(1, 3:3:∞)))
 
 function getindex(X::AbstractLegendreCubicJacobi, k::Int, j::Int)
     ki,ji = findblockindex.(axes(X), (k,j))

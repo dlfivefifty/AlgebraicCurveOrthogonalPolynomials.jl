@@ -65,7 +65,7 @@ B*R + A - x*I + B'*R
 
 function op(J, x)
     N = blocksize(J,1)
-    PseudoBlockArray([Matrix(I,2,2) zeros(2,2N-2); (J-x*I)[Block.(1:N-1),:]] \ [Matrix(I,2,2); zeros(2N-2,2)], fill(2,N), [2])
+    BlockedArray([Matrix(I,2,2) zeros(2,2N-2); (J-x*I)[Block.(1:N-1),:]] \ [Matrix(I,2,2); zeros(2N-2,2)], fill(2,N), [2])
 end
 N = 110; J = mortar(Tridiagonal(fill(C,N-1), fill(A,N), fill(B,N-1)))
 P = op(BigFloat.(J), 10)

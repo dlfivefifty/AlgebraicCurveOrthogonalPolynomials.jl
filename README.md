@@ -47,7 +47,7 @@ apart from `d = 1`. This is accessible as the columns of `P`
 are blocked a la BlockArrays.jl:
 ```julia
 julia> P[CircleCoordinate(0.1), Block.(1:3)]
-3-blocked 5-element PseudoBlockArray{Float64,1,Array{Float64,1},Tuple{BlockedUnitRange{StepRange{Int64,Int64}}}}:
+3-blocked 5-element BlockedArray{Float64,1,Array{Float64,1},Tuple{BlockedUnitRange{StepRange{Int64,Int64}}}}:
  1.0                
  ───────────────────
  0.9950041652780258 

@@ -1,10 +1,10 @@
 using DelimitedFiles, BlockArrays, Test
 import ForwardDiff: value, Dual
 
-Aˣ = PseudoBlockArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8))
-Bˣ = PseudoBlockArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8))
-Aʸ = PseudoBlockArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8))
-Bʸ = PseudoBlockArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8))
+Aˣ = BlockedArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8))
+Bˣ = BlockedArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8))
+Aʸ = BlockedArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8))
+Bʸ = BlockedArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8))
 
 function qr_nullspace(N, A)
     Q, R = qr(A',Val(true))
@@ -49,10 +49,10 @@ scatter(vec(specgrid(X,Y)))
 
 
 
-Aˣ = PseudoBlockArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8)) |> Matrix
-Bˣ = PseudoBlockArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8)) |> Matrix
-Aʸ = PseudoBlockArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8)) |> Matrix
-Bʸ = PseudoBlockArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8)) |> Matrix
+Aˣ = BlockedArray(readdlm("experiments/Ax.csv"), fill(4,8), fill(4,8)) |> Matrix
+Bˣ = BlockedArray(readdlm("experiments/Bx.csv"), fill(4,8), fill(4,8)) |> Matrix
+Aʸ = BlockedArray(readdlm("experiments/Ay.csv"), fill(4,8), fill(4,8)) |> Matrix
+Bʸ = BlockedArray(readdlm("experiments/By.csv"), fill(4,8), fill(4,8)) |> Matrix
 
 
 X = z -> Aˣ + Bˣ/z + z*Bˣ'
